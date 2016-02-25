@@ -15,9 +15,13 @@ class CreateVisitedPagesTable extends Migration
       Schema::create('visited_pages', function (Blueprint $table) {
           $table->increments('id');
           $table->integer('user_id')->unsigned();
-          $table->foreign('user_id')->references('id')->on('users');
           $table->integer('page_id')->unsigned();
-          $table->foreign('page_id')->references('page_number')->on('pages');
+          $table->timestamps();
+      });
+
+      Schema::table('visited_pages', function($table) {
+          $table->foreign('user_id')->references('id')->on('users');
+          $table->foreign('page_id')->references('id')->on('pages');
       });
     }
 
