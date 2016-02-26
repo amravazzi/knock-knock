@@ -15,6 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Route::get('/user/register', function () {
+//     return view('auth.register');
+// });
+//
+// Route::get('/user/login', function () {
+//     return view('auth.login');
+// });
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -28,4 +35,23 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['web']], function () {
     //
+});
+
+Route::group(['middleware' => 'web'], function () {
+
+    Route::auth();
+
+    Route::get('/', 'HomeController@index');
+
+    Route::get('/home', 'HomeController@index');
+
+    Route::get('/user/register', 'HomeController@insideRegister');
+
+    Route::get('/user/login', 'HomeController@insideLogin');
+
+    Route::get('/message/add', 'HomeController@messageAdd');
+
+    Route::get('/message/list', 'HomeController@messageList');
+
+    Route::post('/messages/add', 'MessageController@store');
 });

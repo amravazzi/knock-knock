@@ -8,7 +8,7 @@ This is a web application on behalf of the super secret spy agency: CS566. Built
 
 Requires PHP > 5.4
 
-```git clone https://github.com/amravazzi/knock-knock.git```
+```git clone https://github.com/aravazzi/knock-knock.git```
 
 ```composer update```
 

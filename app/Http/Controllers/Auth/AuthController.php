@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use DB;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -29,6 +30,7 @@ class AuthController extends Controller
      * @var string
      */
     protected $redirectTo = '/';
+    protected $username = 'username';
 
     /**
      * Create a new authentication controller instance.
@@ -38,6 +40,13 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'logout']);
+        if(\Auth::check())
+        {
+          DB::table('app_mode')->insert([
+            ['user_id' => \Auth::user()->id, 'status' => 'simple_mode']
+          ]);
+        }
+
     }
 
     /**
@@ -49,8 +58,7 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
+            'username' => 'required|max:255|unique:users,username',
             'password' => 'required|confirmed|min:6',
         ]);
     }
@@ -63,10 +71,21 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
+        // hash username
+        $hashUsername = md5($data['username']);
+        // hex hashed username
+        $hexSeq = str_split(unpack('H*', $hashUsername)[1], 2);
+        // get the knock sequence
+        $sequence = '';
+        for($j=0; $j<4; $j++)
+        {
+          $sequence[$j] = $hexSeq[$j]%4;
+        }
+
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
+            'username' => $data['username'],
             'password' => bcrypt($data['password']),
+            'sequence' => serialize($sequence)
         ]);
     }
 }
