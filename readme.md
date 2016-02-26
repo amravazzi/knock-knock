@@ -6,4 +6,12 @@ This is a web application on behalf of the super secret spy agency: CS566. Built
 
 ## Installation
 
+Requires PHP > 5.4
+
+```git clone https://github.com/amravazzi/knock-knock.git```
+
 ```composer update```
+
+```php artisan migrate```
+
+```php artisan db:seed```
