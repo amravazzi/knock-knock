@@ -12,7 +12,7 @@ Requires PHP > 5.4
 
 ```composer update```
 
-Open the file ```.env``` and add you database credentials, then:
+Open the file ```.env``` and add you database credentials, then:  
 
 ```php artisan migrate```
 

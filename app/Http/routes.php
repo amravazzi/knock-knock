@@ -15,13 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/user/register', function () {
-//     return view('auth.register');
-// });
-//
-// Route::get('/user/login', function () {
-//     return view('auth.login');
-// });
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -32,9 +25,21 @@ Route::get('/', function () {
 | kernel and includes session state, CSRF protection, and more.
 |
 */
-
 Route::group(['middleware' => ['web']], function () {
-    //
+
+    // if( ! \Auth::check() )
+    // {
+    //   //dd(\Auth::check());
+    //     Route::get('/user/register', function () {
+    //         return view('auth.register');
+    //     });
+    // } else {
+    //     // \HomeController::logNavigation();
+    //     // \HomeController::verifySequence();
+    //     // Route::get('/user/register', 'HomeController@insideRegister');
+    // }
+
+
 });
 
 Route::group(['middleware' => 'web'], function () {
@@ -45,13 +50,31 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('/home', 'HomeController@index');
 
-    Route::get('/user/register', 'HomeController@insideRegister');
-
-    Route::get('/user/login', 'HomeController@insideLogin');
-
     Route::get('/message/add', 'HomeController@messageAdd');
 
     Route::get('/message/list', 'HomeController@messageList');
 
     Route::post('/messages/add', 'MessageController@store');
+
+    Route::get('/user/register', function (App\Http\Controllers\HomeController $home) {
+        if( ! \Auth::check() )
+        {
+            return view('auth.register');
+        } else {
+            $home->logNavigation();
+            $home->verifySequence();
+            return view('auth.register');
+        }
+    });
+
+    Route::get('/user/login', function (App\Http\Controllers\HomeController $home) {
+        if( ! \Auth::check() )
+        {
+            return view('auth.login');
+        } else {
+            $home->logNavigation();
+            $home->verifySequence();
+            return view('auth.login');
+        }
+    });
 });

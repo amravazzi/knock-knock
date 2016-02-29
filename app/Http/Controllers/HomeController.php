@@ -100,28 +100,4 @@ class HomeController extends Controller
         self::verifySequence();
         return view('message.add');
     }
-
-    /**
-     * Show login page
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function insideLogin()
-    {
-        self::logNavigation();
-        self::verifySequence();
-        return view('auth.login');
-    }
-
-    /**
-     * Show Register page
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function insideRegister()
-    {
-        self::logNavigation();
-        self::verifySequence();
-        return view('auth.register');
-    }
 }
