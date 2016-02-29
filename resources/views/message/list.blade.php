@@ -15,8 +15,10 @@
                             <tr>
                               <!-- Task Name -->
                               <td class="table-text">
-                                  <div>{{ $message->title }}</div>
-                                  <div>{{ $message->content }}</div>
+                                  <div class="message">
+                                    <div>{{ $message->title }}</div>
+                                    <div>{{ $message->content }}</div>
+                                  </div>
                               </td>
                             </tr>
                             @endforeach
