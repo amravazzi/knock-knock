@@ -38,15 +38,15 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('password_confirm') ? ' has-error' : '' }}">
                             <label class="col-md-4 control-label">Confirm Password</label>
 
                             <div class="col-md-6">
-                                <input type="password" class="form-control" name="password_confirmation">
+                                <input type="password" class="form-control" name="password_confirm">
 
-                                @if ($errors->has('password_confirmation'))
+                                @if ($errors->has('password_confirm'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                        <strong>{{ $errors->first('password_confirm') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -54,7 +54,7 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" name="submit">
                                     <i class="fa fa-btn fa-user"></i>Register
                                 </button>
                             </div>
